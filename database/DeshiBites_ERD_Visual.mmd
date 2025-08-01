@@ -1,0 +1,513 @@
+```mermaid
+erDiagram
+    restaurants {
+        int id PK
+        varchar name
+        varchar tagline
+        text description
+        varchar logo_url
+        varchar banner_url
+        varchar favicon_url
+        varchar primary_color
+        varchar secondary_color
+        varchar accent_color
+        varchar phone
+        varchar email
+        text address
+        varchar website
+        varchar facebook_url
+        varchar instagram_url
+        varchar twitter_url
+        varchar youtube_url
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    business_hours {
+        int id PK
+        int restaurant_id FK
+        enum day_of_week
+        time open_time
+        time close_time
+        boolean is_closed
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    categories {
+        int id PK
+        int restaurant_id FK
+        varchar name
+        text description
+        varchar image_url
+        int sort_order
+        boolean is_active
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    menu_items {
+        int id PK
+        int restaurant_id FK
+        int category_id FK
+        varchar name
+        text description
+        decimal price
+        decimal original_price
+        varchar image_url
+        boolean is_available
+        boolean is_featured
+        int preparation_time
+        int calories
+        enum spice_level
+        varchar pos_item_id
+        int sort_order
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    menu_item_tags {
+        int id PK
+        int menu_item_id FK
+        enum tag
+        timestamp created_at
+    }
+
+    menu_item_variations {
+        int id PK
+        int menu_item_id FK
+        varchar name
+        decimal price_adjustment
+        boolean is_default
+        timestamp created_at
+    }
+
+    addons {
+        int id PK
+        int restaurant_id FK
+        varchar name
+        decimal price
+        varchar category
+        boolean is_available
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    menu_item_addons {
+        int id PK
+        int menu_item_id FK
+        int addon_id FK
+        boolean is_required
+        int max_quantity
+    }
+
+    customers {
+        int id PK
+        int restaurant_id FK
+        varchar first_name
+        varchar last_name
+        varchar email
+        varchar phone
+        date date_of_birth
+        enum gender
+        int loyalty_points
+        int total_orders
+        decimal total_spent
+        json favorite_items
+        json dietary_preferences
+        boolean is_active
+        timestamp last_order_date
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    customer_addresses {
+        int id PK
+        int customer_id FK
+        varchar label
+        text street_address
+        varchar city
+        varchar state
+        varchar postal_code
+        varchar country
+        decimal latitude
+        decimal longitude
+        boolean is_default
+        text delivery_instructions
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    orders {
+        int id PK
+        int restaurant_id FK
+        int customer_id FK
+        varchar order_number
+        enum order_type
+        enum order_status
+        enum payment_status
+        decimal subtotal
+        decimal tax_amount
+        decimal delivery_fee
+        decimal discount_amount
+        decimal tip_amount
+        decimal total_amount
+        varchar guest_name
+        varchar guest_phone
+        varchar guest_email
+        int delivery_address_id FK
+        text delivery_instructions
+        timestamp estimated_delivery_time
+        timestamp actual_delivery_time
+        varchar table_number
+        text special_instructions
+        varchar pos_order_id
+        varchar pos_payment_id
+        timestamp order_date
+        timestamp confirmed_at
+        timestamp prepared_at
+        timestamp delivered_at
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    order_items {
+        int id PK
+        int order_id FK
+        int menu_item_id FK
+        int variation_id FK
+        int quantity
+        decimal unit_price
+        decimal total_price
+        text special_instructions
+        timestamp created_at
+    }
+
+    order_item_addons {
+        int id PK
+        int order_item_id FK
+        int addon_id FK
+        int quantity
+        decimal unit_price
+        decimal total_price
+        timestamp created_at
+    }
+
+    payments {
+        int id PK
+        int order_id FK
+        enum payment_method
+        varchar payment_gateway
+        varchar transaction_id
+        varchar gateway_transaction_id
+        decimal amount
+        varchar currency
+        enum payment_status
+        json gateway_response
+        timestamp processed_at
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    discounts_coupons {
+        int id PK
+        int restaurant_id FK
+        varchar code
+        varchar name
+        text description
+        enum discount_type
+        decimal discount_value
+        decimal minimum_order_amount
+        decimal maximum_discount
+        int usage_limit
+        int usage_per_customer
+        int current_usage
+        json applicable_items
+        json customer_tiers
+        timestamp start_date
+        timestamp end_date
+        boolean is_active
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    coupon_usage {
+        int id PK
+        int coupon_id FK
+        int order_id FK
+        int customer_id FK
+        decimal discount_amount
+        timestamp used_at
+    }
+
+    inventory {
+        int id PK
+        int restaurant_id FK
+        varchar item_name
+        varchar category
+        varchar unit
+        decimal current_stock
+        decimal minimum_stock
+        decimal maximum_stock
+        decimal cost_per_unit
+        varchar supplier
+        timestamp last_restocked
+        date expiry_date
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    menu_item_ingredients {
+        int id PK
+        int menu_item_id FK
+        int inventory_item_id FK
+        decimal quantity_required
+        varchar unit
+    }
+
+    staff {
+        int id PK
+        int restaurant_id FK
+        varchar employee_id
+        varchar first_name
+        varchar last_name
+        varchar email
+        varchar phone
+        enum role
+        json permissions
+        date hire_date
+        decimal salary
+        boolean is_active
+        timestamp last_login
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    staff_shifts {
+        int id PK
+        int staff_id FK
+        date shift_date
+        time start_time
+        time end_time
+        int break_duration
+        time actual_start_time
+        time actual_end_time
+        decimal hours_worked
+        decimal overtime_hours
+        enum status
+        text notes
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    tables {
+        int id PK
+        int restaurant_id FK
+        varchar table_number
+        int capacity
+        varchar location
+        enum status
+        varchar qr_code
+        boolean is_active
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    reservations {
+        int id PK
+        int restaurant_id FK
+        int customer_id FK
+        int table_id FK
+        varchar guest_name
+        varchar guest_phone
+        varchar guest_email
+        int party_size
+        date reservation_date
+        time reservation_time
+        int duration
+        enum status
+        text special_requests
+        timestamp confirmed_at
+        timestamp seated_at
+        timestamp completed_at
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    pos_integrations {
+        int id PK
+        int restaurant_id FK
+        enum provider
+        varchar merchant_id
+        varchar location_id
+        text api_key_encrypted
+        enum environment
+        varchar webhook_url
+        boolean is_active
+        timestamp last_sync
+        enum sync_status
+        text error_message
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    sync_logs {
+        int id PK
+        int restaurant_id FK
+        int pos_integration_id FK
+        enum sync_type
+        enum sync_direction
+        enum status
+        int records_processed
+        int records_successful
+        int records_failed
+        json error_details
+        timestamp started_at
+        timestamp completed_at
+    }
+
+    analytics_events {
+        int id PK
+        int restaurant_id FK
+        varchar event_type
+        json event_data
+        int user_id
+        enum user_type
+        varchar session_id
+        varchar ip_address
+        text user_agent
+        timestamp created_at
+    }
+
+    reviews_ratings {
+        int id PK
+        int restaurant_id FK
+        int customer_id FK
+        int order_id FK
+        int overall_rating
+        int food_rating
+        int service_rating
+        int delivery_rating
+        text review_text
+        varchar guest_name
+        varchar guest_email
+        boolean is_verified
+        boolean is_public
+        int helpful_votes
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    loyalty_programs {
+        int id PK
+        int restaurant_id FK
+        varchar name
+        text description
+        decimal points_per_rupee
+        decimal redemption_rate
+        int minimum_redemption
+        json tier_thresholds
+        json tier_benefits
+        int birthday_bonus
+        int referral_bonus
+        boolean is_active
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    loyalty_transactions {
+        int id PK
+        int customer_id FK
+        int order_id FK
+        enum transaction_type
+        int points
+        varchar description
+        date expiry_date
+        timestamp created_at
+    }
+
+    notifications {
+        int id PK
+        int restaurant_id FK
+        enum recipient_type
+        int recipient_id
+        enum type
+        varchar title
+        text message
+        enum channel
+        enum status
+        timestamp scheduled_at
+        timestamp sent_at
+        json data
+        timestamp created_at
+    }
+
+    settings {
+        int id PK
+        int restaurant_id FK
+        varchar category
+        varchar setting_key
+        json setting_value
+        boolean is_encrypted
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    %% Relationships
+    restaurants ||--o{ business_hours : "has"
+    restaurants ||--o{ categories : "has"
+    restaurants ||--o{ menu_items : "has"
+    restaurants ||--o{ addons : "has"
+    restaurants ||--o{ customers : "has"
+    restaurants ||--o{ orders : "has"
+    restaurants ||--o{ inventory : "has"
+    restaurants ||--o{ staff : "has"
+    restaurants ||--o{ tables : "has"
+    restaurants ||--o{ reservations : "has"
+    restaurants ||--o{ pos_integrations : "has"
+    restaurants ||--o{ sync_logs : "has"
+    restaurants ||--o{ analytics_events : "has"
+    restaurants ||--o{ reviews_ratings : "has"
+    restaurants ||--o{ loyalty_programs : "has"
+    restaurants ||--o{ notifications : "has"
+    restaurants ||--o{ settings : "has"
+    restaurants ||--o{ discounts_coupons : "has"
+
+    categories ||--o{ menu_items : "contains"
+    
+    menu_items ||--o{ menu_item_tags : "has"
+    menu_items ||--o{ menu_item_variations : "has"
+    menu_items ||--o{ menu_item_addons : "allows"
+    menu_items ||--o{ menu_item_ingredients : "requires"
+    menu_items ||--o{ order_items : "ordered_as"
+
+    addons ||--o{ menu_item_addons : "available_for"
+    addons ||--o{ order_item_addons : "added_to"
+
+    customers ||--o{ customer_addresses : "has"
+    customers ||--o{ orders : "places"
+    customers ||--o{ reservations : "makes"
+    customers ||--o{ reviews_ratings : "writes"
+    customers ||--o{ loyalty_transactions : "earns"
+    customers ||--o{ coupon_usage : "uses"
+
+    orders ||--o{ order_items : "contains"
+    orders ||--o{ payments : "paid_by"
+    orders ||--o{ coupon_usage : "applies"
+    orders ||--o{ reviews_ratings : "reviewed_by"
+    orders ||--o{ loyalty_transactions : "generates"
+    orders }o--|| customer_addresses : "delivered_to"
+
+    order_items ||--o{ order_item_addons : "includes"
+    order_items }o--|| menu_item_variations : "uses"
+
+    inventory ||--o{ menu_item_ingredients : "used_in"
+
+    staff ||--o{ staff_shifts : "works"
+
+    tables ||--o{ reservations : "reserved_for"
+
+    pos_integrations ||--o{ sync_logs : "generates"
+
+    discounts_coupons ||--o{ coupon_usage : "used_in"
+```

@@ -1,0 +1,75 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@deshibites.com",
+      "password": "admin123",
+      "name": "Admin User",
+      "role": "admin",
+      "permissions": ["dashboard", "menu", "orders", "customers", "analytics", "settings", "user_management"],
+      "phone": "+1234567890",
+      "created_at": "2024-01-01T00:00:00Z",
+      "last_login": "2025-07-30T10:30:00Z",
+      "status": "active"
+    },
+    {
+      "id": "2", 
+      "email": "manager@deshibites.com",
+      "password": "manager123",
+      "name": "Manager User",
+      "role": "manager",
+      "permissions": ["dashboard", "menu", "orders", "analytics"],
+      "phone": "+1234567891",
+      "created_at": "2024-01-15T00:00:00Z",
+      "last_login": "2025-07-30T09:15:00Z",
+      "status": "active"
+    },
+    {
+      "id": "3",
+      "email": "user@deshibites.com", 
+      "password": "user123",
+      "name": "Regular User",
+      "role": "user",
+      "permissions": ["profile", "orders"],
+      "phone": "+1234567892",
+      "created_at": "2024-02-01T00:00:00Z",
+      "last_login": "2025-07-30T08:45:00Z",
+      "status": "active"
+    },
+    {
+      "id": "4",
+      "email": "demo@test.com",
+      "password": "demo",
+      "name": "Demo User", 
+      "role": "user",
+      "permissions": ["profile"],
+      "phone": null,
+      "created_at": "2024-03-01T00:00:00Z",
+      "last_login": "2025-07-30T07:20:00Z",
+      "status": "active"
+    }
+  ],
+  "roles": [
+    {
+      "role": "admin",
+      "label": "Administrator",
+      "description": "Full access to all system features",
+      "permissions": ["dashboard", "menu", "orders", "customers", "analytics", "settings", "user_management"],
+      "can_access_admin": true
+    },
+    {
+      "role": "manager", 
+      "label": "Manager",
+      "description": "Limited admin access for daily operations",
+      "permissions": ["dashboard", "menu", "orders", "analytics"],
+      "can_access_admin": true
+    },
+    {
+      "role": "user",
+      "label": "Customer", 
+      "description": "Regular customer access",
+      "permissions": ["profile", "orders"],
+      "can_access_admin": false
+    }
+  ]
+}

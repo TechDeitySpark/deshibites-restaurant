@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deshi Bites - Asian Street Food</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f4f0;
+            color: #333;
+        }
+
+        .header {
+            background-color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #ff8c42, #ffa726);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .logo-text h1 {
+            font-size: 24px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .logo-text p {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+
+        .header-info {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .delivery-notice {
+            background: linear-gradient(135deg, #ff8c42, #ffa726);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #f8f4f0, #fff);
+        }
+
+        .hero h2 {
+            font-size: 48px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .hero .highlight {
+            color: #ff8c42;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #7f8c8d;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .menu-nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 30px 20px;
+            flex-wrap: wrap;
+        }
+
+        .menu-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .menu-btn.active {
+            background: #ff8c42;
+            color: white;
+        }
+
+        .menu-btn:not(.active) {
+            background: white;
+            color: #7f8c8d;
+            border: 1px solid #e0e0e0;
+        }
+
+        .menu-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 0 20px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menu-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .item-image {
+            height: 200px;
+            background: linear-gradient(135deg, #f0e6d2, #e8dcc0);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item-image::before {
+            content: '🥟';
+            font-size: 60px;
+            opacity: 0.6;
+        }
+
+        .badges {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            gap: 5px;
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .badge.veg {
+            background: #4CAF50;
+        }
+
+        .badge.halal {
+            background: #2196F3;
+        }
+
+        .spice-level {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #ff5722;
+            font-size: 16px;
+        }
+
+        .item-content {
+            padding: 20px;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .item-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .item-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff8c42;
+        }
+
+        .item-description {
+            font-size: 12px;
+            color: #7f8c8d;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        .item-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item-category {
+            font-size: 12px;
+            color: #95a5a6;
+        }
+
+        .add-to-cart-btn {
+            background: #ff8c42;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .add-to-cart-btn:hover {
+            background: #e67e22;
+        }
+
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 36px;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+                padding: 0 15px 50px;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .header-info {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">🍜</div>
+            <div class="logo-text">
+                <h1>Deshi Bites</h1>
+                <p>Asian Street Food</p>
+            </div>
+        </div>
+        <div class="header-info">
+            <div>📞 Order Hotline</div>
+            <div>📍 Chemnitz, Germany</div>
+        </div>
+    </header>
+
+    <div class="delivery-notice">
+        🚚 Order Anytime - Select Delivery Time Between 3:00 PM and 8:00 PM
+    </div>
+
+    <section class="hero">
+        <h2>Authentic Asian<br><span class="highlight">Street Food</span></h2>
+        <p>Experience the vibrant flavors of Asia, delivered fresh to your door. From steaming momos to crispy fritters, every bite tells a story.</p>
+    </section>
+
+    <nav class="menu-nav">
+        <button class="menu-btn active">🍽️ All Items</button>
+        <button class="menu-btn">🥟 Momos</button>
+        <button class="menu-btn">🍤 Fritters</button>
+        <button class="menu-btn">🍚 Rice Dishes</button>
+        <button class="menu-btn">🍜 Noodles</button>
+        <button class="menu-btn">⭐ Specials</button>
+        <button class="menu-btn">🥤 Drinks</button>
+    </nav>
+
+    <main class="menu-grid">
+        <div class="menu-item">
+            <div class="item-image">
+                <div class="badges">
+                    <span class="badge halal">Halal</span>
+                </div>
+                <div class="spice-level">🌶️🌶️</div>
+            </div>
+            <div class="item-content">
+                <div class="item-header">
+                    <h3 class="item-title">Chicken Momo (Steamed/Fried)</h3>
+                    <span class="item-price">€4.00</span>
+                </div>
+                <p class="item-description">All-purpose flour, water, salt, oil, carrot, onion, garlic, ginger, soy sauce, pepper, minced chicken - 8 pieces</p>
+                <div class="item-footer">
+                    <span class="item-category">Category: Momos</span>
+                    <button class="add-to-cart-btn">+ Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <div class="item-image">
+                <div class="badges">
+                    <span class="badge veg">Veg</span>
+                    <span class="badge halal">Halal</span>
+                </div>
+                <div class="spice-level">🌶️🌶️</div>
+            </div>
+            <div class="item-content">
+                <div class="item-header">
+                    <h3 class="item-title">Veg Momo (Steamed/Fried)</h3>
+                    <span class="item-price">€4.00</span>
+                </div>
+                <p class="item-description">All-purpose flour, water, salt, oil, cabbage, carrot, onion, bell pepper, garlic, ginger, soy sauce, pepper - 8 pieces</p>
+                <div class="item-footer">
+                    <span class="item-category">Category: Momos</span>
+                    <button class="add-to-cart-btn">+ Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <div class="item-image">
+                <div class="badges">
+                    <span class="badge halal">Halal</span>
+                </div>
+                <div class="spice-level">🌶️🌶️</div>
+            </div>
+            <div class="item-content">
+                <div class="item-header">
+                    <h3 class="item-title">Chicken Wonton with Dip</h3>
+                    <span class="item-price">€2.50</span>
+                </div>
+                <p class="item-description">All-purpose flour, water, salt, oil, minced chicken, onion, garlic, ginger, soy sauce, pepper, dip - 4 pieces</p>
+                <div class="item-footer">
+                    <span class="item-category">Category: Momos</span>
+                    <button class="add-to-cart-btn">+ Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <div class="item-image">
+                <div class="badges">
+                    <span class="badge veg">Veg</span>
+                    <span class="badge halal">Halal</span>
+                </div>
+                <div class="spice-level">🌶️🌶️</div>
+            </div>
+            <div class="item-content">
+                <div class="item-header">
+                    <h3 class="item-title">Mixed Vegetable Momo</h3>
+                    <span class="item-price">€4.50</span>
+                </div>
+                <p class="item-description">All-purpose flour, water, salt, oil, mixed vegetables, cabbage, carrot, onion, garlic, ginger, soy sauce, pepper - 8 pieces</p>
+                <div class="item-footer">
+                    <span class="item-category">Category: Momos</span>
+                    <button class="add-to-cart-btn">+ Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <div class="item-image">
+                <div class="badges">
+                    <span class="badge veg">Veg</span>
+                    <span class="badge halal">Halal</span>
+                </div>
+                <div class="spice-level">🌶️🌶️</div>
+            </div>
+            <div class="item-content">
+                <div class="item-header">
+                    <h3 class="item-title">Paneer Momo Special</h3>
+                    <span class="item-price">€5.00</span>
+                </div>
+                <p class="item-description">All-purpose flour, water, salt, oil, paneer, onion, garlic, ginger, special spices, soy sauce - 8 pieces</p>
+                <div class="item-footer">
+                    <span class="item-category">Category: Momos</span>
+                    <button class="add-to-cart-btn">+ Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <div class="item-image">
+                <div class="badges">
+                    <span class="badge veg">Veg</span>
+                    <span class="badge halal">Halal</span>
+                </div>
+                <div class="spice-level">🌶️🌶️</div>
+            </div>
+            <div class="item-content">
+                <div class="item-header">
+                    <h3 class="item-title">Cheese Corn Momo</h3>
+                    <span class="item-price">€4.80</span>
+                </div>
+                <p class="item-description">All-purpose flour, water, salt, oil, cheese, sweet corn, onion, garlic, ginger, herbs, pepper - 8 pieces</p>
+                <div class="item-footer">
+                    <span class="item-category">Category: Momos</span>
+                    <button class="add-to-cart-btn">+ Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Add interactive functionality
+        const menuButtons = document.querySelectorAll('.menu-btn');
+        const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+
+        // Menu navigation functionality
+        menuButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                menuButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // Add to cart functionality
+        addToCartButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '✓ Added!';
+                btn.style.background = '#27ae60';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '#ff8c42';
+                }, 1500);
+            });
+        });
+
+        // Smooth scrolling for better UX
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuItems = document.querySelectorAll('.menu-item');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+
+            menuItems.forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(item);
+            });
+        });
+    </script>
+</body>
+</html>
