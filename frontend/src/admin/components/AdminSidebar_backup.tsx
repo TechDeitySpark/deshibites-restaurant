@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { SidebarProps, AdminSection } from '../types';
@@ -17,19 +17,19 @@ const AdminSidebar: React.FC<SidebarProps> = ({
     navigate('/');
   };
   const menuItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: 'ðŸ“Š', description: 'Overview & Analytics' },
-    { id: 'menu', label: 'Menu Management', icon: 'ðŸ½ï¸', description: 'Manage Food Items' },
-    { id: 'orders', label: 'Orders', icon: 'ðŸ“‹', description: 'Order Processing' },
-    { id: 'customers', label: 'Customers', icon: 'ðŸ‘¥', description: 'Customer Database' },
-    { id: 'analytics', label: 'Analytics', icon: 'ðŸ“ˆ', description: 'Reports & Insights' },
-    { id: 'settings', label: 'Settings', icon: 'âš™ï¸', description: 'System Settings' },
-    { id: 'Landing', label: 'Landing', icon: 'ðŸŒ', description: 'Go to Main Website' }
+    { id: 'dashboard', label: 'Dashboard', icon: '📊', description: 'Overview & Analytics' },
+    { id: 'menu', label: 'Menu Management', icon: '🍽️', description: 'Manage Food Items' },
+    { id: 'orders', label: 'Orders', icon: '📋', description: 'Order Processing' },
+    { id: 'customers', label: 'Customers', icon: '👥', description: 'Customer Database' },
+    { id: 'analytics', label: 'Analytics', icon: '📈', description: 'Reports & Insights' },
+    { id: 'settings', label: 'Settings', icon: '⚙️', description: 'System Settings' },
+    { id: 'Landing', label: 'Landing', icon: '🌐', description: 'Go to Main Website' }
   ];
 
   const authItems = [
-    { id: 'profile', label: 'My Profile', icon: 'ðŸ‘¤', description: 'Account Settings' },
-    { id: 'security', label: 'Security', icon: 'ðŸ”’', description: 'Password & Security' },
-    { id: 'logout', label: 'Logout', icon: 'ðŸšª', description: 'Sign Out' }
+    { id: 'profile', label: 'My Profile', icon: '👤', description: 'Account Settings' },
+    { id: 'security', label: 'Security', icon: '🔒', description: 'Password & Security' },
+    { id: 'logout', label: 'Logout', icon: '🚪', description: 'Sign Out' }
   ];
 
   const handleAuthAction = (action: string) => {
@@ -47,7 +47,7 @@ const AdminSidebar: React.FC<SidebarProps> = ({
     <div className={`admin-sidebar ${isMobileOpen ? 'mobile-open' : 'mobile-hidden'}`}>
       <div className="admin-sidebar-header">
         <h3>
-          <span>ðŸ›</span>
+          <span>🍛</span>
           Deshi Bites
         </h3>
         <div className="subtitle">Admin Dashboard</div>
@@ -85,7 +85,7 @@ const AdminSidebar: React.FC<SidebarProps> = ({
               gap: '4px',
               marginTop: '2px'
             }}>
-              <span style={{ color: '#10b981' }}>â—</span> Online
+              <span style={{ color: '#10b981' }}>●</span> Online
             </div>
           </div>
         </div>
@@ -95,12 +95,14 @@ const AdminSidebar: React.FC<SidebarProps> = ({
         <ul className="admin-sidebar-nav">
           {menuItems.map((item) => (
             <li key={item.id}>
-              <button type="button" className={activeSection === item.id ? 'active' : ''}
+              <a
+                className={activeSection === item.id ? 'active' : ''}
                 onClick={() => {
                   onSectionChange(item.id as AdminSection);
                   onMobileToggle();
                 }}
-                title={item.description} style={{ background: "none", border: "none", width: "100%", textAlign: "left", cursor: "pointer", padding: "0", display: "flex", alignItems: "center" }}>
+                title={item.description}
+              >
                 <span className="icon">{item.icon}</span>
                 <div>
                   <div>{item.label}</div>
@@ -116,7 +118,7 @@ const AdminSidebar: React.FC<SidebarProps> = ({
                     </small>
                   )}
                 </div>
-              </button>
+              </a>
             </li>
           ))}
         </ul>
@@ -141,7 +143,8 @@ const AdminSidebar: React.FC<SidebarProps> = ({
           <ul className="admin-sidebar-nav" style={{ padding: '0' }}>
             {authItems.map((item) => (
               <li key={item.id}>
-                <button type="button" className={item.id === 'logout' ? 'logout-item' : ''}
+                <a
+                  className={item.id === 'logout' ? 'logout-item' : ''}
                   onClick={() => handleAuthAction(item.id)}
                   title={item.description}
                   style={{
@@ -164,7 +167,7 @@ const AdminSidebar: React.FC<SidebarProps> = ({
                       </small>
                     )}
                   </div>
-                </button>
+                </a>
               </li>
             ))}
           </ul>
@@ -177,4 +180,3 @@ const AdminSidebar: React.FC<SidebarProps> = ({
 export { AdminSidebar };
 export default AdminSidebar;
 export {};
-
