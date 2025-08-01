@@ -32,7 +32,7 @@ jobs:
     - name: Run tests
       run: |
         cd frontend
-        echo "Skipping tests temporarily"
+        CI=true npm run test -- --coverage --passWithNoTests --watchAll=false
     
     - name: Build application
       run: |
