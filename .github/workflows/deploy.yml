@@ -106,12 +106,10 @@ jobs:
           
           # Create docker-compose.yml for production
           sudo tee docker-compose.prod.yml > /dev/null <<EOF
-          version: '3.8'
           services:
             frontend:
               image: ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:latest
               ports:
-                - "80:80"
                 - "3000:80"
               restart: unless-stopped
               environment:
