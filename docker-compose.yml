@@ -18,27 +18,7 @@ services:
       retries: 3
       start_period: 40s
 
-  # Database (MySQL for your multilingual setup)
-  database:
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-deshibites_root_2025}
-      MYSQL_DATABASE: ${DB_NAME:-deshibites_db}
-      MYSQL_USER: ${DB_USER:-deshibites_user}
-      MYSQL_PASSWORD: ${DB_PASSWORD:-deshibites_pass_2025}
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
-      - ./database:/docker-entrypoint-initdb.d
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-
-  # Optional: Backend API (Node.js/Express)
+  # Optional: Add a backend API later if needed
   # backend:
   #   build:
   #     context: ./backend
@@ -47,17 +27,10 @@ services:
   #     - "3001:3001"
   #   environment:
   #     - NODE_ENV=production
-  #     - DB_HOST=database
-  #     - DB_USER=${DB_USER:-deshibites_user}
-  #     - DB_PASSWORD=${DB_PASSWORD:-deshibites_pass_2025}
-  #     - DB_NAME=${DB_NAME:-deshibites_db}
-  #   depends_on:
-  #     - database
-  #   restart: unless-stopped
 
-volumes:
-  mysql_data:
+# volumes:
+#   mysql_data:
 
-networks:
-  default:
-    name: deshibites_network
+# networks:
+#   default:
+#     name: deshibites_network
